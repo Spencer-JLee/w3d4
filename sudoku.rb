@@ -10,7 +10,7 @@ class SudokuGame
   end
 
   def initialize(board)
-    @board = [[]]
+    @board = board #[[]]
   end
 
   def method_missing(method_name, *args)
@@ -20,6 +20,14 @@ class SudokuGame
       string = args[0]
       string.split(",").map! { |char| Integer(char) + 1 + rand(2) + " is the position"}
     end
+  end
+  
+  def parse_pos(str) #created method parse for position
+    str.split(",").map{ |ele| ele.to_i}
+  end
+
+  def parse_val(str) #created method parse for value
+    str.to_i
   end
 
   def get_pos
@@ -85,3 +93,4 @@ end
 
 
 game = SudokuGame.from_file("puzzles/sudoku1.txt")
+game.run  #added games.run
