@@ -1,5 +1,5 @@
 require_relative "board"
-
+#took two empty off of the sudoku1.txt
 class SudokuGame
   def self.from_file(filename)
     board = Board.from_file(filename)
