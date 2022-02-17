@@ -1,4 +1,4 @@
-require_relative "tile"
+require_relative "../tile" #changed tile to access outer directory
 
 class Board
   def self.empty_grid
