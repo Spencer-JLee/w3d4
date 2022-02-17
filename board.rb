@@ -10,11 +10,11 @@ class Board
     grid
   end
 
-  def self.from_file(filename)
-    rows = File.readlines("filename").map(:chomp)
+  def self.from_file(filename)      #changed :chomp to &:chomp
+    rows = File.readlines(filename).map(&:chomp) #changed "filename" to filename
     tiles = rows.map do |row|
-      nums = row.split("").map { |char| parseInt(char) }
-      nums.map { |num| Tle.new(num) }
+      nums = row.split("").map { |char| Integer(char) } #changed parseInt to Integer
+      nums.map { |num| Tile.new(num) }  #change Tle to Tile
     end
 
     self.new(tiles)
@@ -32,7 +32,7 @@ class Board
   def []=(pos, value)
     x, y = pos
     tile = grid[x][y]
-    tile.value = new_value
+    tile.value = value #changed new_value to value
   end
 
   def columns
@@ -40,7 +40,7 @@ class Board
   end
 
   def render
-    puts "(0..8).to_a.join(" ")"
+    puts "  " + (0..8).to_a.join(" ")  #removed quotation marks 
     grid.each_with_index do |row, i|
       puts "#{i} #{row.join(" ")}"
     end
@@ -51,7 +51,11 @@ class Board
     grid.size
   end
 
-  alias_method :rows, :size
+  #alias_method :rows, :size
+
+  def rows
+    @grid
+  end
 
   def solved?
     rows.all? { |row| solved_set?(row) } &&
